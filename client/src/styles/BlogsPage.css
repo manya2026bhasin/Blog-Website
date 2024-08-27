@@ -1,0 +1,276 @@
+/* General body styles */
+@import url('https://fonts.googleapis.com/css2?family=Allura&display=swap');
+
+body {
+  background-color: #f5f5f5;
+  background-image: url("https://transparenttextures.com/patterns/gplay.png");
+    overflow-x: hidden; /* Prevent horizontal overflow */
+    margin: 0; /* Remove default body margin */
+    font-family: Arial, sans-serif; /* Set a clean font */
+  }
+  .filter-button {
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+  }
+  
+  .filter-dropdown {
+    position: absolute;
+    top: 65px; /* Adjust based on your header height */
+    left: 14px;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+    z-index: 1000; /* Make sure the dropdown is above other elements */
+  }
+
+  .category-dropdown {
+    position: absolute;
+    top: 65px; /* Adjust based on your header height */
+    left: 145px;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+    z-index: 1000; /* Make sure the dropdown is above other elements */
+  }
+
+  .category-dropdown p:hover {
+    background-color: #f0f0f0;
+  }
+
+  .category-dropdown p {
+    padding: 10px 30px;
+    margin: 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .filter-dropdown p {
+    padding: 10px 30px;
+    margin: 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .filter-dropdown p:hover {
+    background-color: #f0f0f0;
+  }
+  /* Header styling */
+  .header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+  background-image: url("https://transparenttextures.com/patterns/gplay.png");
+  background-color: #f5f5f5;
+    /* background-color: #6f4f28; */
+    color: black; /* Light text color */
+    z-index: 1000;
+    display: flex;
+    height: 78px;
+    justify-content: space-between;
+    align-items: center; /* Vertically center items */
+    padding: 10px 10px; /* Add padding */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+    /* position: fixed; */
+    /* position: sticky; */
+  }
+  
+  .header > span {
+    font-family: "Allura", cursive;
+    font-weight: 400;
+    font-style: normal;
+    margin: 0 10px;
+    font-size: 45px; /* Adjust font size */
+  }
+  
+  /* Blog list styling */
+  .blogsPage-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center blog items */
+    padding: 20px; /* Add padding */
+    padding-top: 95px;
+  }
+  
+  .blog {
+    width: 90%; /* Use percentage for responsiveness */
+    max-width: 800px; /* Set a maximum width */
+    background-color: white; /* Light pink background */
+    margin: 10px 0; /* Margin for separation */
+    padding: 20px; /* Add padding */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    transition: box-shadow 0.3s; /* Smooth shadow transition */
+  }
+  
+  .blog p {
+    font-size: 16px; /* Adjust font size */
+    margin: 0; /* Remove default margin */
+  }
+  
+  .blog .category-text {
+    font-size: 14px; /* Adjust font size */
+    font-weight: 500; /* Semi-bold text */
+    color: #555; /* Slightly darker text color */
+    margin-bottom: 5px;
+  }
+
+  .blog .date-text {
+    font-size: 14px; /* Adjust font size */
+    font-weight: 500; /* Semi-bold text */
+    color: #555; /* Slightly darker text color */
+    margin-bottom: 5px;
+  }
+
+  .blog .author-text {
+    font-size: 14px; /* Adjust font size */
+    font-weight: 500; /* Semi-bold text */
+    color: #555; /* Slightly darker text color */
+    margin-top: 8px;
+  }
+
+  .icons {
+    margin-left: 94%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  
+  .deletebtn{
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+    border-radius: 50%;
+  }
+
+  .editbtn{
+    height: 14px;
+    width: 14px;
+    margin-top: 2px;
+    cursor: pointer;
+  }
+
+  .blog:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Enhance shadow on hover */
+  }
+  
+  /* Footer styling */
+  .footer {
+    position: fixed;
+    bottom: 20px; /* Add space from the bottom */
+    right: 20px; /* Add space from the right */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .roundedFixedButton {
+    background-color: #1c1d1f; /* Blue background */
+    color: #fff; /* White text color */
+    font-size: 24px; /* Adjust font size */
+    height: 60px; /* Set height */
+    width: 60px; /* Set width */
+    border: none; /* Remove border */
+    border-radius: 50%; /* Round button */
+    text-align: center;
+    line-height: 60px; /* Center text vertically */
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Soft shadow */
+    transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition */
+  }
+  
+  .roundedFixedButton:hover {
+    background-color: #717272; /* Darker blue on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+  }
+  
+  /* Popup styling */
+  .popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .popup-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px; /* Set a maximum width */
+  }
+  
+  .popup-content h2 {
+    margin-top: 0;
+    font-size: 20px; /* Adjust font size */
+  }
+  
+  .popup-content label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .popup-content input,
+  .popup-content select {
+    width: calc(100% - 16px); /* Full width with padding accounted for */
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+  }
+  
+  .popup-content button {
+    padding: 8px 12px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff; /* Button color */
+    color: #fff;
+    font-size: 16px; /* Font size for buttons */
+    margin-right: 10px;
+    transition: background-color 0.3s; /* Smooth transition */
+  }
+  
+  .popup-content button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  
+  .popup-content button:last-child {
+    background-color: #dc3545; /* Red color for close button */
+  }
+  
+  .popup-content button:last-child:hover {
+    background-color: #c82333; /* Darker red on hover */
+  }
+  
+  .email-popup {
+    position: absolute;
+    top: 100px; /* Adjust based on your header height */
+    left: 145px;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+    z-index: 1000; /* Make sure the dropdown is above other elements */
+  }
+
+  .email-popup >div {
+    padding: 10px 30px;
+    margin: 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .email-popup span:hover {
+    background-color: #f0f0f0;
+  }

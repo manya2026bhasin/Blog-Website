@@ -1,0 +1,30 @@
+.account-button {
+    cursor: pointer;
+    height: 35px;
+    width: 35px;
+    margin-right: 20px;
+  }
+  
+.account-dropdown {
+    position: absolute;
+    top: 70px; /* Adjust based on your header height */
+    right:25px;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+    z-index: 1000; /* Make sure the dropdown is above other elements */
+  }
+
+  .account-dropdown p:hover {
+    background-color: #f0f0f0;
+  }
+
+  .account-dropdown p {
+    color: black;
+    padding: 10px 30px;
+    margin: 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
