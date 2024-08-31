@@ -3,6 +3,9 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import pg from "pg";
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+dotenv.config();
+
 const app = express();
 const PORT = 5000;
 
@@ -10,12 +13,13 @@ const PORT = 5000;
 app.use(cors());
 app.use(bodyParser.json()); // Parses JSON requests
 const pool = new pg.Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'blogWebsite',
-    password: 'manya@1315',
-    port: 5432// Default PostgreSQL port
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_DATABASE,
+    password: process.env.DB_PASSWORD,
+    port: process.env.DB_PORT
 });
+
 // POST endpoint
 let data;
 app.post('/api/login', async (req, res) => {
@@ -99,6 +103,25 @@ app.post('/api/blogs', async (req, res) => {
         const result = await client.query(query, values);
         client.release();
         res.status(200).send('data added');
+    } catch (error) {
+        console.error('Error processing form submission:', error);
+        res.status(500).send('Internal server error');
+    }
+
+});
+
+app.post('/api/editblogs', async (req, res) => {
+    data = req.body;
+    console.log('Data received:', data);
+    try {
+
+        const client = await pool.connect();
+        const query = 'UPDATE blogs SET blog=$1,category=$2, author=$3,createdat=$4 WHERE id = $5';
+        const values = [req.body["blog"],req.body["category"],req.body["author"],req.body["createdAt"],req.body["id"]];
+
+        const result = await client.query(query, values);
+        client.release();
+        res.status(200).send('data edited');
     } catch (error) {
         console.error('Error processing form submission:', error);
         res.status(500).send('Internal server error');

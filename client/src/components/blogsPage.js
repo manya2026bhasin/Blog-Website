@@ -2,19 +2,20 @@ import React, { useState, useEffect } from 'react';
 import '../styles/BlogsPage.css';
 import axios from 'axios';
 import User from './user.js';
-import {jwtDecode} from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import filterimg from '../images/filter1.png';
 import deleteimg from '../images/delete.png';
 import editimg from '../images/pen.png';
 
 function BlogsPage() {
   const [blogs, setBlogs] = useState([]);
-  const [form, setForm] = useState({ blog: '', category: '', author: '', createdAt: '' });
+  const [form, setForm] = useState({ blog: '', category: '', author: '', createdAt: '', id: -1 });
   const [showPopup, setShowPopup] = useState(false);
   const [showFilterDropdown, setShowFilterDropdown] = useState(false);
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
   const [showEmailPopup, setShowEmailPopup] = useState(false);
   const [searchEmail, setSearchEmail] = useState('');
+  const [showEditPopup, setShowEditPopup] = useState(false);
 
   function getEmailFromToken() {
     const token = localStorage.getItem('token');
@@ -44,14 +45,6 @@ function BlogsPage() {
     setShowPopup(!showPopup);
   }
 
-  // function toggleCategoryDropdown() {
-  //   setShowCategoryDropdown(!showCategoryDropdown);
-  // }
-
-  // function toggleEmailPopup() {
-  //   setShowEmailPopup(!showEmailPopup);
-  // }
-
   function handleFormDataChange(e) {
     setForm({
       ...form,
@@ -75,34 +68,64 @@ function BlogsPage() {
       alert('Please fill in both the blog and category fields.');
     }
   }
-  async function handleDelete(id,author) {
-    try{
-      if(author === getEmailFromToken()){
-      await axios.post('http://localhost:5000/api/deleteblogs',{id});
-      const result = await axios.get('http://localhost:5000/api/blogs');
-      setBlogs(result.data);
+  async function handleDelete(id, author) {
+    try {
+      if (author === getEmailFromToken()) {
+        await axios.post('http://localhost:5000/api/deleteblogs', { id });
+        const result = await axios.get('http://localhost:5000/api/blogs');
+        setBlogs(result.data);
       }
-      else{
+      else {
         alert("you are not the author of this blog. you can't delete it.");
       }
     }
-    catch(error){
+    catch (error) {
       console.error('Error sending data:', error);
-        alert('Error deleting blog. Please try again.');
+      alert('Error deleting blog. Please try again.');
     }
   }
-  async function handleEdit(id) {
-    
-    // try{
-    //   await axios.post('http://localhost:5000/api/deleteblogs',{id});
-    //   const result = await axios.get('http://localhost:5000/api/blogs');
-    //   setBlogs(result.data);
-    // }
-    // catch(error){
-    //   console.error('Error sending data:', error);
-    //     alert('Error deleting blog. Please try again.');
-    // }
+  async function handleEdit(blog) {
+    if (blog.author === getEmailFromToken()) {
+      setShowEditPopup(true);
+      const date = new Date();
+      console.log(date);
+      const formattedDate = date.toISOString().slice(0, 19).replace('T', ' ');
+      setForm({
+        blog: blog.blog,
+        category: blog.category,
+        author: blog.author,
+        createdAt: formattedDate,
+        id: blog.id
+      });
+    }
+    else {
+      alert('You are not the author of this blog.');
+    }
   }
+
+  async function editBlog(e) {
+    if (form.blog && form.category) {
+      try {
+        await axios.post('http://localhost:5000/api/editblogs', form);
+        const result = await axios.get('http://localhost:5000/api/blogs');
+        setBlogs(result.data);
+        setShowPopup(false);
+        setForm({ blog: '', category: '', author: '', createdAt: '', id: -1 });
+      } catch (error) {
+        console.error('Error sending data:', error);
+        alert('Error adding blog. Please try again.');
+      }
+    } else {
+      alert('Please fill in both the blog and category fields.');
+    }
+    setForm({blog: '', category: '', author: '', createdAt: '', id: -1});
+    toggleEditPopup();
+  }
+
+  function toggleEditPopup() {
+    setShowEditPopup(!showEditPopup);
+  }
+
   async function sortCategory(e) {
     try {
       const category = e.target.textContent;
@@ -215,12 +238,46 @@ function BlogsPage() {
                 <p>{blog.blog}</p>
                 <p className="author-text">Author: {blog.author}</p>
                 <div className='icons'>
-                  <img src={deleteimg} alt='delete' className='deletebtn' onClick={()=> handleDelete(blog.id,blog.author)}></img>
-                  <img src={editimg} alt='edit' className='editbtn' onClick={() => handleEdit(blog.id)}></img>
-                  </div>
+                  <img src={deleteimg} alt='delete' className='deletebtn' onClick={() => handleDelete(blog.id, blog.author)}></img>
+                  <img src={editimg} alt='edit' className='editbtn' onClick={() => handleEdit(blog)}></img>
+                </div>
               </div>
-          );
-})}
+            );
+          })}
+        {/** Popup for adding a blog */}
+        {showEditPopup && (
+          <div className="popup">
+            <div className="popup-content">
+              <h2>Edit Blog</h2>
+              <label>
+                Blog:
+                <input
+                  type="textarea"
+                  name="blog"
+                  value={form.blog}
+                  onChange={handleFormDataChange}
+                />
+              </label>
+              <label>
+                Category:
+                <select
+                  name="category"
+                  value={form.category}
+                  onChange={handleFormDataChange}
+                >
+                  <option value="">Select a category</option>
+                  <option value="Technology">Technology</option>
+                  <option value="Lifestyle">Lifestyle</option>
+                  <option value="Health">Health</option>
+                  <option value="Travel">Travel</option>
+                  <option value="Education">Education</option>
+                </select>
+              </label>
+              <button onClick={editBlog}>Edit Blog</button>
+              <button onClick={toggleEditPopup}>Close</button>
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="footer">
