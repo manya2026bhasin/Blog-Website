@@ -40,7 +40,7 @@ app.post('/api/login', async (req, res) => {
             if (user.passwords === req.body["password"]) {
                 const token = jwt.sign(
                     { email: req.body["email"] }, // Embed the email in the payload
-                    'your_jwt_secret', // Replace with your actual secret key
+                    process.env.JWT_SECRET, // Replace with your actual secret key
                     { expiresIn: '1h' } // Set token expiry
                 );
                 res.status(200).json({ message: 'Login successful',token });
