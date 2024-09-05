@@ -116,13 +116,13 @@ Edit: Modify existing blogs.
 Delete: Remove blogs you no longer want to keep.
 Filter: Browse blogs by category.
 ## API Endpoints
-POST /api/signup: Register a new user.
-POST /api/login: Log in a user and return a JWT.
-POST /api/blogs: Create a new blog post.
-POST /api/editblogs: Edit an existing blog post.
-POST /api/deleteblogs: Delete a blog post.
-GET /api/blogs: Get all blogs.
-GET /api/categoryblogs: Get blogs by category.
-GET /api/emailblogs: Get blogs by author (email).
+* POST /api/signup: Register a new user.
+* POST /api/login: Log in a user and return a JWT.
+* POST /api/blogs: Create a new blog post.
+* POST /api/editblogs: Edit an existing blog post.
+* POST /api/deleteblogs: Delete a blog post.
+* GET /api/blogs: Get all blogs.
+* GET /api/categoryblogs: Get blogs by category.
+* GET /api/emailblogs: Get blogs by author (email).
 ## Contributing
 Contributions are welcome! Please feel free to submit a Pull Request.
